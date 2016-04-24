@@ -28,8 +28,9 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './user.se
             }],
         execute: function() {
             UsersComponent = (function () {
-                function UsersComponent(_userService) {
+                function UsersComponent(_userService, _router) {
                     this._userService = _userService;
+                    this._router = _router;
                     this.isLoading = true;
                 }
                 UsersComponent.prototype.ngOnInit = function () {
@@ -40,14 +41,27 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './user.se
                         _this.isLoading = false;
                     });
                 };
+                UsersComponent.prototype.delete = function (user) {
+                    var _this = this;
+                    var confirmed = confirm("Are you sure you want to delete " + user.name + "?");
+                    if (confirmed) {
+                        var index = this.users.indexOf(user);
+                        this.users.splice(index, 1);
+                        this._userService.deleteUser(user.id)
+                            .subscribe(null, function (err) {
+                            alert("Could not delete " + user.name + ".");
+                            _this.users.splice(index, 0, user);
+                        });
+                    }
+                };
                 UsersComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/users.template.html',
-                        styles: ["\n\t\t.add-user-btn { margin-bottom: 10px; }\n\t\t.glyphicon-edit { color: green; }\n\t"],
+                        styles: ["\n\t\t.add-user-btn { margin-bottom: 10px; }\n\t\t.glyphicon-edit { color: green; }\n\t\t.glyphicon-remove { color: red; }\n\t\t.glyphicon-remove:hover { cursor: pointer; }\n\t"],
                         directives: [router_1.RouterLink],
                         providers: [user_service_1.UserService, http_1.HTTP_PROVIDERS]
                     }), 
-                    __metadata('design:paramtypes', [user_service_1.UserService])
+                    __metadata('design:paramtypes', [user_service_1.UserService, router_1.Router])
                 ], UsersComponent);
                 return UsersComponent;
             }());

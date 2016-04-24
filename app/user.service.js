@@ -43,6 +43,9 @@ System.register(['angular2/http', 'rxjs/add/operator/map', 'angular2/core'], fun
                     return this._http.put(this._url + '/' + id, JSON.stringify(user))
                         .map(function (res) { return res.json(); });
                 };
+                UserService.prototype.deleteUser = function (id) {
+                    return this._http.delete(this._url + '/' + id);
+                };
                 UserService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
