@@ -34,6 +34,10 @@ System.register(['angular2/core', 'angular2/common', './emailValidators'], funct
                             ])]
                     });
                 }
+                NewUserComponent.prototype.routerCanDeactivate = function (next, previous) {
+                    if (this.form.dirty)
+                        return confirm("Your User information isn't saved. Are you sure you want to leave?");
+                };
                 NewUserComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/new-user.template.html'
