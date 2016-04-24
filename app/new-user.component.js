@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', './emailValidators'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', './emailValidators', 'angular2/http', 'angular2/router', './user.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/common', './emailValidators'], funct
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, emailValidators_1;
+    var core_1, common_1, emailValidators_1, http_1, router_1, user_service_1;
     var NewUserComponent;
     return {
         setters:[
@@ -22,27 +22,54 @@ System.register(['angular2/core', 'angular2/common', './emailValidators'], funct
             },
             function (emailValidators_1_1) {
                 emailValidators_1 = emailValidators_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (user_service_1_1) {
+                user_service_1 = user_service_1_1;
             }],
         execute: function() {
             NewUserComponent = (function () {
-                function NewUserComponent(fb) {
+                function NewUserComponent(fb, _userService, _router) {
+                    this._userService = _userService;
+                    this._router = _router;
                     this.form = fb.group({
                         name: ['', common_1.Validators.required],
                         email: ['', common_1.Validators.compose([
                                 common_1.Validators.required,
                                 emailValidators_1.EmailValidators.mustBeValid
-                            ])]
+                            ])],
+                        phone: [],
+                        address: fb.group({
+                            street: [],
+                            suite: [],
+                            city: [],
+                            zip: []
+                        })
                     });
                 }
                 NewUserComponent.prototype.routerCanDeactivate = function (next, previous) {
                     if (this.form.dirty)
                         return confirm("Your User information isn't saved. Are you sure you want to leave?");
                 };
+                NewUserComponent.prototype.save = function () {
+                    var _this = this;
+                    this._userService.createUser(this.form.value)
+                        .subscribe(function (x) {
+                        // in the future: this.form.markAsPristine();
+                        _this._router.navigate(['Users']);
+                    });
+                };
                 NewUserComponent = __decorate([
                     core_1.Component({
-                        templateUrl: 'app/new-user.template.html'
+                        templateUrl: 'app/new-user.template.html',
+                        providers: [user_service_1.UserService, http_1.HTTP_PROVIDERS]
                     }), 
-                    __metadata('design:paramtypes', [common_1.FormBuilder])
+                    __metadata('design:paramtypes', [common_1.FormBuilder, user_service_1.UserService, router_1.Router])
                 ], NewUserComponent);
                 return NewUserComponent;
             }());

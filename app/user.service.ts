@@ -1,5 +1,5 @@
 import {Http} from 'angular2/http';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {Injectable} from 'angular2/core';
 import {User} from './user';
@@ -14,5 +14,10 @@ export class UserService {
 	getUsers() : Observable<User> {
 		return this._http.get(this._url)
 							.map(res => res.json());
+	}
+
+	createUser(user: User) {
+		return this._http.post(this._url, JSON.stringify(user))
+								.map(res => res.json());
 	}
 }

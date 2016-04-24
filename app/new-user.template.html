@@ -48,6 +48,6 @@
 				<input type="number" class="form-control">
 			</div>
 		</fieldset>
-		<button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
+		<button class="btn btn-primary" type="submit" [disabled]="!form.valid" (click)="save()">Save</button>
 	</form>
 </div>
