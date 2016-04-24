@@ -36,7 +36,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 				street: [],
 				suite: [],
 				city: [],
-				zip: []
+				zipcode: []
 			})
 		});
 	}
@@ -64,10 +64,22 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 	}
 
 	save() {
-		this._userService.createUser(this.form.value)
-				.subscribe(x => {
-				// in the future: this.form.markAsPristine();
-					this._router.navigate(['Users']);
-				});
+		var id = this._routeParams.get('id');
+
+		if ( id ) {
+			console.log("update request sent...");
+			console.log(this.form);
+			this._userService.updateUser(id, this.form.value)
+					.subscribe(x => {
+					// in the future: this.form.markAsPristine();
+						this._router.navigate(['Users']);
+					});
+		} else {
+			this._userService.createUser(this.form.value)
+					.subscribe(x => {
+					// in the future: this.form.markAsPristine();
+						this._router.navigate(['Users']);
+					});
+		}
 	}
 }
