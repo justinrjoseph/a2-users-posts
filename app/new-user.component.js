@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', './emailValidators'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/common'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1;
+    var core_1, common_1, emailValidators_1;
     var NewUserComponent;
     return {
         setters:[
@@ -19,24 +19,24 @@ System.register(['angular2/core', 'angular2/common'], function(exports_1, contex
             },
             function (common_1_1) {
                 common_1 = common_1_1;
+            },
+            function (emailValidators_1_1) {
+                emailValidators_1 = emailValidators_1_1;
             }],
         execute: function() {
             NewUserComponent = (function () {
-                function NewUserComponent(_fb) {
-                    this._fb = _fb;
-                    this.form = this._fb.group({
+                function NewUserComponent(fb) {
+                    this.form = fb.group({
                         name: ['', common_1.Validators.required],
-                        email: ['', common_1.Validators.required],
-                        phone: ['', common_1.Validators.required],
-                        street: ['', common_1.Validators.required],
-                        suite: ['', common_1.Validators.required],
-                        city: ['', common_1.Validators.required],
-                        zip: ['', common_1.Validators.required]
+                        email: ['', common_1.Validators.compose([
+                                common_1.Validators.required,
+                                emailValidators_1.EmailValidators.mustBeValid
+                            ])]
                     });
                 }
                 NewUserComponent = __decorate([
                     core_1.Component({
-                        template: "\n\t\t<h1>Add a User</h1>\n\t\t<div class=\"col-md-6 well\">\n\t\t\t<form>\n\t\t\t\t<fieldset>\n\t\t\t\t\t<legend>User</legend>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label for=\"name\">Name</label>\n\t\t\t\t\t\t<input type=\"text\" ngControl=\"name\" class=\"form-control\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label for=\"Email\">Email</label>\n\t\t\t\t\t\t<input type=\"email\" ngControl=\"email\" class=\"form-control\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label for=\"phone\">Phone</label>\n\t\t\t\t\t\t<input type=\"phone\" ngControl=\"phone\" class=\"form-control\">\n\t\t\t\t\t</div>\n\t\t\t\t</fieldset>\n\t\t\t\t<fieldset>\n\t\t\t\t\t<legend>Address</legend>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label for=\"street\">Street</label>\n\t\t\t\t\t\t<input type=\"text\" ngControl=\"street\" class=\"form-control\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label for=\"suite\">Suite</label>\n\t\t\t\t\t\t<input type=\"text\" ngControl=\"suite\" class=\"form-control\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label for=\"city\">City</label>\n\t\t\t\t\t\t<input type=\"text\" ngControl=\"city\" class=\"form-control\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label for=\"zip\">Zip Code</label>\n\t\t\t\t\t\t<input type=\"number\" ngControl=\"zip\" class=\"form-control\">\n\t\t\t\t\t</div>\n\t\t\t\t</fieldset>\n\t\t\t\t<button class=\"btn btn-primary\" type=\"submit\">Save</button>\n\t\t\t</form>\n\t\t</div>\n\t"
+                        templateUrl: 'app/new-user.template.html'
                     }), 
                     __metadata('design:paramtypes', [common_1.FormBuilder])
                 ], NewUserComponent);

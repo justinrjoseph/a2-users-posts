@@ -42,7 +42,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './user.se
                 };
                 UsersComponent = __decorate([
                     core_1.Component({
-                        template: "\n\t\t<h1>Users</h1>\n\t\t<a class=\"btn btn-primary add-user-btn\" [routerLink]=\"['New User']\">Add User</a>\n\t\t<div *ngIf=\"isLoading\">\n\t\t\t<i class=\"fa fa-spinner fa-spin fa-3x\"></i>\n\t\t</div>\n\t\t<table class=\"table table-bordered\">\n\t\t\t<tr *ngIf=\"users\">\n\t\t\t\t<th>Name</th>\n\t\t\t\t<th>Email</th>\n\t\t\t\t<th>Edit</th>\n\t\t\t\t<th>Delete</th>\n\t\t\t</tr>\n\t\t\t<tr *ngFor=\"#user of users\">\n\t\t\t  <td>{{ user.name }}</td>\n\t\t\t  <td>{{ user.email }}</td>\n\t\t\t  <td><i class=\"glyphicon glyphicon-edit\"></i></td>\n\t\t\t  <td><i class=\"glyphicon glyphicon-remove\"></i></td>\n\t\t\t</tr>\n\t\t</table>\n\t",
+                        templateUrl: 'app/users.template.html',
                         styles: ["\n\t\t.add-user-btn { margin-bottom: 10px; }\n\t"],
                         directives: [router_1.RouterLink],
                         providers: [user_service_1.UserService, http_1.HTTP_PROVIDERS]

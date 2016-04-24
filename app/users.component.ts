@@ -4,27 +4,7 @@ import {RouterLink} from 'angular2/router';
 import {UserService} from './user.service';
 
 @Component({
-	template: `
-		<h1>Users</h1>
-		<a class="btn btn-primary add-user-btn" [routerLink]="['New User']">Add User</a>
-		<div *ngIf="isLoading">
-			<i class="fa fa-spinner fa-spin fa-3x"></i>
-		</div>
-		<table class="table table-bordered">
-			<tr *ngIf="users">
-				<th>Name</th>
-				<th>Email</th>
-				<th>Edit</th>
-				<th>Delete</th>
-			</tr>
-			<tr *ngFor="#user of users">
-			  <td>{{ user.name }}</td>
-			  <td>{{ user.email }}</td>
-			  <td><i class="glyphicon glyphicon-edit"></i></td>
-			  <td><i class="glyphicon glyphicon-remove"></i></td>
-			</tr>
-		</table>
-	`,
+	templateUrl: 'app/users.template.html',
 	styles: [`
 		.add-user-btn { margin-bottom: 10px; }
 	`],
