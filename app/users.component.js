@@ -43,7 +43,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './user.se
                 UsersComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/users.template.html',
-                        styles: ["\n\t\t.add-user-btn { margin-bottom: 10px; }\n\t"],
+                        styles: ["\n\t\t.add-user-btn { margin-bottom: 10px; }\n\t\t.glyphicon-edit { color: green; }\n\t"],
                         directives: [router_1.RouterLink],
                         providers: [user_service_1.UserService, http_1.HTTP_PROVIDERS]
                     }), 

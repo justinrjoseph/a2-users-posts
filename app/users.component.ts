@@ -7,6 +7,7 @@ import {UserService} from './user.service';
 	templateUrl: 'app/users.template.html',
 	styles: [`
 		.add-user-btn { margin-bottom: 10px; }
+		.glyphicon-edit { color: green; }
 	`],
 	directives: [RouterLink],
 	providers: [UserService, HTTP_PROVIDERS]

@@ -1,11 +1,11 @@
-<h1>Add a User</h1>
+<h1>{{ title }}</h1>
 <div class="col-md-6 well">
-	<form [ngFormModel]="form">
+	<form [ngFormModel]="form" (ngSubmit)="save()">
 		<fieldset>
 			<legend>User</legend>
 			<div class="form-group">
 				<label for="name">Name</label>
-				<input type="text" ngControl="name" #name="ngForm" class="form-control">
+				<input type="text" [(ngModel)]="user.name" ngControl="name" #name="ngForm" class="form-control">
 			</div>
 			<div *ngIf="name.touched && name.errors">
 				<div *ngIf="name.errors.required" class="alert alert-danger">
@@ -14,7 +14,7 @@
 			</div>
 			<div class="form-group">
 				<label for="Email">Email</label>
-				<input type="email" ngControl="email" #email="ngForm" class="form-control">
+				<input type="email" [(ngModel)]="user.email" ngControl="email" #email="ngForm" class="form-control">
 			</div>
 			<div *ngIf="email.touched && email.errors">
 				<div *ngIf="email.errors.required" class="alert alert-danger">
@@ -26,28 +26,28 @@
 			</div>
 			<div class="form-group">
 				<label for="phone">Phone</label>
-				<input type="phone" class="form-control">
+				<input type="phone" [(ngModel)]="user.phone" class="form-control">
 			</div>
 		</fieldset>
 		<fieldset>
 			<legend>Address</legend>
 			<div class="form-group">
 				<label for="street">Street</label>
-				<input type="text" class="form-control">
+				<input type="text" [(ngModel)]="user.address.street" class="form-control">
 			</div>
 			<div class="form-group">
 				<label for="suite">Suite</label>
-				<input type="text" class="form-control">
+				<input type="text" [(ngModel)]="user.address.suite" class="form-control">
 			</div>
 			<div class="form-group">
 				<label for="city">City</label>
-				<input type="text" class="form-control">
+				<input type="text" [(ngModel)]="user.address.city" class="form-control">
 			</div>
 			<div class="form-group">
 				<label for="zip">Zip Code</label>
-				<input type="number" class="form-control">
+				<input type="text" [(ngModel)]="user.address.zipcode" class="form-control">
 			</div>
 		</fieldset>
-		<button class="btn btn-primary" type="submit" [disabled]="!form.valid" (click)="save()">Save</button>
+		<button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
 	</form>
 </div>

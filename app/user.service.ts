@@ -16,8 +16,18 @@ export class UserService {
 							.map(res => res.json());
 	}
 
+	getUser(id) : Observable<User> {
+		return this._http.get(this._url + '/' + id)
+							.map(res => res.json());
+	}
+
 	createUser(user: User) {
 		return this._http.post(this._url, JSON.stringify(user))
+								.map(res => res.json());
+	}
+
+	updateUser(user: User) {
+		return this._http.put(this._url, JSON.stringify(user))
 								.map(res => res.json());
 	}
 }
