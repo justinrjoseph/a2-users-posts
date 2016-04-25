@@ -1,8 +1,6 @@
 <h1>Users</h1>
 <a class="btn btn-primary add-user-btn" [routerLink]="['New User']">Add User</a>
-<div *ngIf="isLoading">
-	<i class="fa fa-spinner fa-spin fa-3x"></i>
-</div>
+<spinner [visible]="isLoading"></spinner>
 <table class="table table-bordered">
 	<tr *ngIf="users">
 		<th>Name</th>
@@ -14,6 +12,6 @@
 	  <td>{{ user.name }}</td>
 	  <td>{{ user.email }}</td>
 	  <td><a [routerLink]="['Edit User', { id: user.id }]"><i class="glyphicon glyphicon-edit"></i></a></td>
-	  <td><i class="glyphicon glyphicon-remove" (click)="delete(user)"></i></td>
+	  <td><i class="glyphicon glyphicon-remove" (click)="deleteUser(user)"></i></td>
 	</tr>
 </table>
