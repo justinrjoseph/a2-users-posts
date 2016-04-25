@@ -1,6 +1,10 @@
 <h1>Posts</h1>
-<spinner [visible]="ifLoadingPosts"></spinner>
 <div class="col-md-6" *ngIf="posts">
+	<select #user class="form-control users" (change)="filterPosts(user.value)">
+		<option value="all">Select a user...</option>
+		<option value="{{ user.id }}" *ngFor="#user of users">{{ user.name }}</option>
+	</select>
+	<spinner [visible]="loadingPosts"></spinner>
 	<ul class="list-group">
 		<li *ngFor="#post of posts" class="list-group-item" (click)="displayPost(post)">
 			{{ post.title }}
@@ -16,7 +20,7 @@
 	    {{ selectedPost.body }}
 	  </div>
 	  <hr>
-	  <spinner [visible]="ifLoadingComments"></spinner>
+	  <spinner [visible]="loadingComments"></spinner>
 	  <div class="media comment" *ngFor="#comment of comments">
 		  <div class="media-left">
 	      <img class="media-object comment-author" src="http://lorempixel.com/80/80/people?random={{ comment.id }}">
