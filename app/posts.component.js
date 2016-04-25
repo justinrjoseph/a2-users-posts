@@ -31,6 +31,7 @@ System.register(['angular2/core', 'angular2/http', './post.service', './spinner.
                 function PostsComponent(_postService) {
                     this._postService = _postService;
                     this.isLoading = true;
+                    this.showPost = false;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
                     var _this = this;
@@ -40,9 +41,14 @@ System.register(['angular2/core', 'angular2/http', './post.service', './spinner.
                         _this.isLoading = false;
                     });
                 };
+                PostsComponent.prototype.displayPost = function (post) {
+                    this.showPost = true;
+                    this.post = post;
+                };
                 PostsComponent = __decorate([
                     core_1.Component({
-                        template: "\n\t\t<h1>Posts</h1>\n\t\t<spinner [visible]=\"isLoading\"></spinner>\n\t\t<div class=\"col-md-6\" *ngIf=\"posts\">\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li *ngFor=\"#post of posts\" class=\"list-group-item\">{{ post.title }}</li>\n\t\t\t</ul>\n\t\t</div><!-- /.col-md-6 -->\n\t",
+                        templateUrl: 'app/posts.template.html',
+                        styles: ["\n\t\t.list-group-item { cursor: pointer; }\n\t\t.list-group-item:hover { background-color: #f5f5f5; }\n\t"],
                         directives: [spinner_component_1.SpinnerComponent],
                         providers: [post_service_1.PostService, http_1.HTTP_PROVIDERS]
                     }), 
