@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', './post.service', './spinner.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', './post.service', './comment.service', './spinner.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http', './post.service', './spinner.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, post_service_1, spinner_component_1;
+    var core_1, http_1, post_service_1, comment_service_1, spinner_component_1;
     var PostsComponent;
     return {
         setters:[
@@ -23,13 +23,17 @@ System.register(['angular2/core', 'angular2/http', './post.service', './spinner.
             function (post_service_1_1) {
                 post_service_1 = post_service_1_1;
             },
+            function (comment_service_1_1) {
+                comment_service_1 = comment_service_1_1;
+            },
             function (spinner_component_1_1) {
                 spinner_component_1 = spinner_component_1_1;
             }],
         execute: function() {
             PostsComponent = (function () {
-                function PostsComponent(_postService) {
+                function PostsComponent(_postService, _commentService) {
                     this._postService = _postService;
+                    this._commentService = _commentService;
                     this.isLoading = true;
                     this.showPost = false;
                 }
@@ -42,17 +46,20 @@ System.register(['angular2/core', 'angular2/http', './post.service', './spinner.
                     });
                 };
                 PostsComponent.prototype.displayPost = function (post) {
+                    var _this = this;
                     this.showPost = true;
                     this.post = post;
+                    this._commentService.getComments(post.id)
+                        .subscribe(function (comments) { return _this.comments = comments; });
                 };
                 PostsComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/posts.template.html',
-                        styles: ["\n\t\t.list-group-item { cursor: pointer; }\n\t\t.list-group-item:hover { background-color: #f5f5f5; }\n\t"],
+                        styles: ["\n\t\t.list-group-item { cursor: pointer; }\n\t\t.list-group-item:hover { background-color: #f5f5f5; }\n\t\thr { width: 75%; }\n\t\t.comment {\n\t\t\tmargin-left: 20px;\n\t\t\tmargin-right: 20px;\n\t\t}\n\t\t.comment-author { border-radius: 100%; }\n\t"],
                         directives: [spinner_component_1.SpinnerComponent],
-                        providers: [post_service_1.PostService, http_1.HTTP_PROVIDERS]
+                        providers: [http_1.HTTP_PROVIDERS, post_service_1.PostService, comment_service_1.CommentService]
                     }), 
-                    __metadata('design:paramtypes', [post_service_1.PostService])
+                    __metadata('design:paramtypes', [post_service_1.PostService, comment_service_1.CommentService])
                 ], PostsComponent);
                 return PostsComponent;
             }());

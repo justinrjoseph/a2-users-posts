@@ -3,7 +3,7 @@ import {Component, OnInit} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {PostService} from './post.service';
-import {Post} from './post';
+import {CommentService} from './comment.service';
 
 import {SpinnerComponent} from './spinner.component';
 
@@ -12,17 +12,24 @@ import {SpinnerComponent} from './spinner.component';
 	styles: [`
 		.list-group-item { cursor: pointer; }
 		.list-group-item:hover { background-color: #f5f5f5; }
+		hr { width: 75%; }
+		.comment {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+		.comment-author { border-radius: 100%; }
 	`],
 	directives: [SpinnerComponent],
-	providers: [PostService, HTTP_PROVIDERS]
+	providers: [HTTP_PROVIDERS, PostService, CommentService]
 })
 export class PostsComponent implements OnInit {
 	isLoading = true;
 	showPost = false;
 	post;
 	posts;
+	comments;
 
-	constructor(private _postService: PostService) {
+	constructor(private _postService: PostService, private _commentService: CommentService) {
 	}
 
 	ngOnInit() {
@@ -36,5 +43,7 @@ export class PostsComponent implements OnInit {
 	displayPost(post) {
 		this.showPost = true;
 		this.post = post;
+		this._commentService.getComments(post.id)
+				.subscribe(comments => this.comments = comments );
 	}
 }

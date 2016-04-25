@@ -13,5 +13,15 @@
 	  <div class="panel-body">
 	    {{ post.body }}
 	  </div>
+	  <hr>
+	  <div class="media comment" *ngFor="#comment of comments">
+		  <div class="media-left">
+	      <img class="media-object comment-author" src="http://lorempixel.com/80/80/people?random={{ comment.id }}">
+		  </div>
+		  <div class="media-body">
+				<h4 class="media-heading">{{ comment.name }}</h4>
+				<p>{{ comment.body }}</p>
+		  </div>
+		</div>
 	</div>
 </div><!-- /.col-md-6 -->
