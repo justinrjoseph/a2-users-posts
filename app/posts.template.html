@@ -1,19 +1,22 @@
 <h1>Posts</h1>
-<spinner [visible]="isLoading"></spinner>
+<spinner [visible]="ifLoadingPosts"></spinner>
 <div class="col-md-6" *ngIf="posts">
 	<ul class="list-group">
-		<li *ngFor="#post of posts" class="list-group-item" (click)="displayPost(post)">{{ post.title }}</li>
+		<li *ngFor="#post of posts" class="list-group-item" (click)="displayPost(post)">
+			{{ post.title }}
+		</li>
 	</ul>
 </div><!-- /.col-md-6 -->
-<div class="col-md-6" *ngIf="showPost">
+<div class="col-md-6" *ngIf="selectedPost">
 	<div class="panel panel-default">
 	  <div class="panel-heading">
-	    <h3 class="panel-title">{{ post.title }}</h3>
+	    <h3 class="panel-title">{{ selectedPost.title }}</h3>
 	  </div>
 	  <div class="panel-body">
-	    {{ post.body }}
+	    {{ selectedPost.body }}
 	  </div>
 	  <hr>
+	  <spinner [visible]="ifLoadingComments"></spinner>
 	  <div class="media comment" *ngFor="#comment of comments">
 		  <div class="media-left">
 	      <img class="media-object comment-author" src="http://lorempixel.com/80/80/people?random={{ comment.id }}">

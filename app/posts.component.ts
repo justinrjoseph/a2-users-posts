@@ -3,7 +3,6 @@ import {Component, OnInit} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {PostService} from './post.service';
-import {CommentService} from './comment.service';
 
 import {SpinnerComponent} from './spinner.component';
 
@@ -20,30 +19,33 @@ import {SpinnerComponent} from './spinner.component';
 		.comment-author { border-radius: 100%; }
 	`],
 	directives: [SpinnerComponent],
-	providers: [HTTP_PROVIDERS, PostService, CommentService]
+	providers: [HTTP_PROVIDERS, PostService]
 })
 export class PostsComponent implements OnInit {
-	isLoading = true;
-	showPost = false;
-	post;
-	posts;
-	comments;
+	ifLoadingPosts = true;
+	ifLoadingComments;
+	selectedPost;
+	posts = [];
+	comments = [];
 
-	constructor(private _postService: PostService, private _commentService: CommentService) {
+	constructor(private _postService: PostService) {
 	}
 
 	ngOnInit() {
 		this._postService.getPosts()
 				.subscribe(posts => {
 					this.posts = posts;
-					this.isLoading = false;
+					this.ifLoadingPosts = false;
 				});
 	}
 
 	displayPost(post) {
-		this.showPost = true;
-		this.post = post;
-		this._commentService.getComments(post.id)
-				.subscribe(comments => this.comments = comments );
+		this.ifLoadingComments = true;
+		this.selectedPost = post;
+		this._postService.getComments(post.id)
+				.subscribe(comments => {
+					this.ifLoadingComments = false;
+					this.comments = comments;
+				});
 	}
 }
