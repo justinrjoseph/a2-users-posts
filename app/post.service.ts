@@ -12,14 +12,14 @@ export class PostService {
 	constructor(private _http: Http) {
 	}
 
-	getPosts(postsFor) : Observable<Post[]> {
-		if ( postsFor === 'all' ) {
-			return this._http.get(this._url)
+	getPosts(filter?) : Observable<Post[]> {
+		var url = this._url;
+
+		if ( filter && filter.userId )
+			url += "?userId=" + filter.userId;
+		
+			return this._http.get(url)
 								.map(res => res.json());
-		} else {
-			return this._http.get(this._url + '?userId=' + postsFor)
-								.map(res => res.json());
-		}
 	}
 
 	getComments(id) : Observable<Comment[]> {

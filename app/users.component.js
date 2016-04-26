@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'angular2/router', './user.service', './spinner.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './user.service', './spinner.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,12 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './user.se
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, router_1, user_service_1, spinner_component_1;
+    var core_1, router_1, user_service_1, spinner_component_1;
     var UsersComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (http_1_1) {
-                http_1 = http_1_1;
             },
             function (router_1_1) {
                 router_1 = router_1_1;
@@ -62,7 +59,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './user.se
                         templateUrl: 'app/users.template.html',
                         styles: ["\n\t\t.add-user-btn { margin-bottom: 10px; }\n\t\t.glyphicon-edit { color: green; }\n\t\t.glyphicon-remove { color: red; }\n\t\t.glyphicon-remove:hover { cursor: pointer; }\n\t"],
                         directives: [spinner_component_1.SpinnerComponent, router_1.RouterLink],
-                        providers: [user_service_1.UserService, http_1.HTTP_PROVIDERS]
+                        providers: [user_service_1.UserService]
                     }), 
                     __metadata('design:paramtypes', [user_service_1.UserService, router_1.Router])
                 ], UsersComponent);

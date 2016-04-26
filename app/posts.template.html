@@ -1,34 +1,36 @@
 <h1>Posts</h1>
-<div class="col-md-6" *ngIf="posts">
-	<select #user class="form-control users" (change)="filterPosts(user.value)">
-		<option value="all">Select a user...</option>
-		<option value="{{ user.id }}" *ngFor="#user of users">{{ user.name }}</option>
-	</select>
-	<spinner [visible]="loadingPosts"></spinner>
-	<ul class="list-group">
-		<li *ngFor="#post of posts" class="list-group-item" (click)="displayPost(post)">
-			{{ post.title }}
-		</li>
-	</ul>
-</div><!-- /.col-md-6 -->
-<div class="col-md-6" *ngIf="selectedPost">
-	<div class="panel panel-default">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">{{ selectedPost.title }}</h3>
-	  </div>
-	  <div class="panel-body">
-	    {{ selectedPost.body }}
-	  </div>
-	  <hr>
-	  <spinner [visible]="loadingComments"></spinner>
-	  <div class="media comment" *ngFor="#comment of comments">
-		  <div class="media-left">
-	      <img class="media-object comment-author" src="http://lorempixel.com/80/80/people?random={{ comment.id }}">
+<div class="row">
+	<div class="col-md-6" *ngIf="posts">
+		<select #u class="form-control users" (change)="filterPosts({ userId: u.value })">
+			<option value="">Select a user...</option>
+			<option value="{{ user.id }}" *ngFor="#user of users">{{ user.name }}</option>
+		</select>
+		<spinner [visible]="loadingPosts"></spinner>
+		<ul class="list-group">
+			<li *ngFor="#post of posts" class="list-group-item" (click)="displayPost(post)">
+				{{ post.title }}
+			</li>
+		</ul>
+	</div><!-- /.col-md-6 -->
+	<div class="col-md-6" *ngIf="selectedPost">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">{{ selectedPost.title }}</h3>
 		  </div>
-		  <div class="media-body">
-				<h4 class="media-heading">{{ comment.name }}</h4>
-				<p>{{ comment.body }}</p>
+		  <div class="panel-body">
+		    {{ selectedPost.body }}
 		  </div>
+		  <hr>
+		  <spinner [visible]="loadingComments"></spinner>
+		  <div class="media comment" *ngFor="#comment of comments">
+			  <div class="media-left">
+		      <img class="media-object comment-author" src="http://lorempixel.com/80/80/people?random={{ comment.id }}">
+			  </div>
+			  <div class="media-body">
+					<h4 class="media-heading">{{ comment.name }}</h4>
+					<p>{{ comment.body }}</p>
+			  </div>
+			</div>
 		</div>
-	</div>
-</div><!-- /.col-md-6 -->
+	</div><!-- /.col-md-6 -->
+</div><!-- /.row -->

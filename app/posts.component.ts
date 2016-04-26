@@ -1,9 +1,7 @@
 import {Component, OnInit} from 'angular2/core';
 
-import {HTTP_PROVIDERS} from 'angular2/http';
-
-import {UserService} from './user.service';
 import {PostService} from './post.service';
+import {UserService} from './user.service';
 
 import {SpinnerComponent} from './spinner.component';
 
@@ -21,12 +19,12 @@ import {SpinnerComponent} from './spinner.component';
 		.comment-author { border-radius: 100%; }
 	`],
 	directives: [SpinnerComponent],
-	providers: [HTTP_PROVIDERS, UserService, PostService]
+	providers: [PostService, UserService]
 })
 export class PostsComponent implements OnInit {
-	loadingPosts = true;
+	loadingPosts;
 	loadingComments;
-	users;
+	users = [];
 	selectedPost;
 	posts = [];
 	comments = [];
@@ -35,23 +33,27 @@ export class PostsComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.loadUsers();
+		this.loadPosts();
+	}
+
+	private loadUsers() {
 		this._userService.getUsers()
 				.subscribe(users => this.users = users);
+	}
 
-		this._postService.getPosts('all')
+	private loadPosts(filter?) {
+		this.loadingPosts = true;		
+		this._postService.getPosts(filter)
 				.subscribe(posts => {
-					this.posts = posts;
 					this.loadingPosts = false;
+					this.posts = posts;					
 				});
 	}
 
-	filterPosts(userId) {
-		this.loadingPosts = true;
-
-		this._postService.getPosts(userId)
-				.subscribe(posts => {
-					this.loadingPosts = false;
-					this.posts = posts });
+	filterPosts(filter) {
+		this.selectedPost = null;
+		this.loadPosts(filter);
 	}
 
 	displayPost(post) {

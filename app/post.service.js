@@ -27,15 +27,12 @@ System.register(['angular2/http', 'rxjs/add/operator/map', 'angular2/core'], fun
                     this._http = _http;
                     this._url = "http://jsonplaceholder.typicode.com/posts";
                 }
-                PostService.prototype.getPosts = function (postsFor) {
-                    if (postsFor === 'all') {
-                        return this._http.get(this._url)
-                            .map(function (res) { return res.json(); });
-                    }
-                    else {
-                        return this._http.get(this._url + '?userId=' + postsFor)
-                            .map(function (res) { return res.json(); });
-                    }
+                PostService.prototype.getPosts = function (filter) {
+                    var url = this._url;
+                    if (filter && filter.userId)
+                        url += "?userId=" + filter.userId;
+                    return this._http.get(url)
+                        .map(function (res) { return res.json(); });
                 };
                 PostService.prototype.getComments = function (id) {
                     return this._http.get(this._url + '/' + id + '/comments')

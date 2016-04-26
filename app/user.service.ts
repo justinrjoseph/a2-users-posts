@@ -11,7 +11,7 @@ export class UserService {
 	constructor(private _http: Http) {
 	}
 
-	getUsers() : Observable<User> {
+	getUsers() : Observable<User[]> {
 		return this._http.get(this._url)
 							.map(res => res.json());
 	}

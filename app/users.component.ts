@@ -1,11 +1,8 @@
 import {Component, OnInit} from 'angular2/core';
 
-import {HTTP_PROVIDERS} from 'angular2/http';
-
 import {Router, RouterLink} from 'angular2/router';
 
 import {UserService} from './user.service';
-import {User} from './user';
 
 import {SpinnerComponent} from './spinner.component';
 
@@ -18,7 +15,7 @@ import {SpinnerComponent} from './spinner.component';
 		.glyphicon-remove:hover { cursor: pointer; }
 	`],
 	directives: [SpinnerComponent, RouterLink],
-	providers: [UserService, HTTP_PROVIDERS]
+	providers: [UserService]
 })
 export class UsersComponent implements OnInit {
 	isLoading = true;
