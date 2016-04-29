@@ -28,6 +28,7 @@ export class PostsComponent implements OnInit {
 	users = [];
 	selectedPost;
 	posts = [];
+	pagedPosts = [];
 	comments = [];
 	pageCount = 10;
 
@@ -37,20 +38,6 @@ export class PostsComponent implements OnInit {
 	ngOnInit() {
 		this.loadUsers();
 		this.loadPosts();
-	}
-
-	private loadUsers() {
-		this._userService.getUsers()
-				.subscribe(users => this.users = users);
-	}
-
-	private loadPosts(filter?) {
-		this.loadingPosts = true;		
-		this._postService.getPosts(filter)
-				.subscribe(posts => {
-					this.loadingPosts = false;
-					this.posts = posts;					
-				});
 	}
 
 	filterPosts(filter) {
@@ -69,6 +56,32 @@ export class PostsComponent implements OnInit {
 	}
 
 	pageChanged(page) {
-		
+		this.pagedPosts = this.getPostsForPage(page);
+	}
+
+	private loadUsers() {
+		this._userService.getUsers()
+				.subscribe(users => this.users = users);
+	}
+
+	private loadPosts(filter?) {
+		this.loadingPosts = true;		
+		this._postService.getPosts(filter)
+				.subscribe(posts => {
+					this.loadingPosts = false;
+					this.posts = posts;
+					this.pagedPosts = this.getPostsForPage(1);
+				});
+	}
+
+	private getPostsForPage(page) {
+		var postsForPage = [];
+		var startingIndex = (page - 1) * this.pageCount;
+		var endingIndex = Math.min(startingIndex + this.pageCount, this.posts.length)
+
+		for ( var i = startingIndex; i < endingIndex; i ++ )
+			postsForPage.push(this.posts[i]);
+
+		return postsForPage;
 	}
 }

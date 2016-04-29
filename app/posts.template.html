@@ -8,7 +8,7 @@
 		<spinner [visible]="loadingPosts"></spinner>
 		<pagination [items]="posts" [page-count]="pageCount" (page-changed)="pageChanged($event)"></pagination>
 		<ul class="list-group">
-			<li *ngFor="#post of posts" class="list-group-item" (click)="displayPost(post)">
+			<li *ngFor="#post of pagedPosts" class="list-group-item" (click)="displayPost(post)">
 				{{ post.title }}
 			</li>
 		</ul>

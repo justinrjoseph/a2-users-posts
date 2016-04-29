@@ -36,26 +36,13 @@ System.register(['angular2/core', './post.service', './user.service', './spinner
                     this._postService = _postService;
                     this.users = [];
                     this.posts = [];
+                    this.pagedPosts = [];
                     this.comments = [];
                     this.pageCount = 10;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
                     this.loadUsers();
                     this.loadPosts();
-                };
-                PostsComponent.prototype.loadUsers = function () {
-                    var _this = this;
-                    this._userService.getUsers()
-                        .subscribe(function (users) { return _this.users = users; });
-                };
-                PostsComponent.prototype.loadPosts = function (filter) {
-                    var _this = this;
-                    this.loadingPosts = true;
-                    this._postService.getPosts(filter)
-                        .subscribe(function (posts) {
-                        _this.loadingPosts = false;
-                        _this.posts = posts;
-                    });
                 };
                 PostsComponent.prototype.filterPosts = function (filter) {
                     this.selectedPost = null;
@@ -72,6 +59,30 @@ System.register(['angular2/core', './post.service', './user.service', './spinner
                     });
                 };
                 PostsComponent.prototype.pageChanged = function (page) {
+                    this.pagedPosts = this.getPostsForPage(page);
+                };
+                PostsComponent.prototype.loadUsers = function () {
+                    var _this = this;
+                    this._userService.getUsers()
+                        .subscribe(function (users) { return _this.users = users; });
+                };
+                PostsComponent.prototype.loadPosts = function (filter) {
+                    var _this = this;
+                    this.loadingPosts = true;
+                    this._postService.getPosts(filter)
+                        .subscribe(function (posts) {
+                        _this.loadingPosts = false;
+                        _this.posts = posts;
+                        _this.pagedPosts = _this.getPostsForPage(1);
+                    });
+                };
+                PostsComponent.prototype.getPostsForPage = function (page) {
+                    var postsForPage = [];
+                    var startingIndex = (page - 1) * this.pageCount;
+                    var endingIndex = Math.min(startingIndex + this.pageCount, this.posts.length);
+                    for (var i = startingIndex; i < endingIndex; i++)
+                        postsForPage.push(this.posts[i]);
+                    return postsForPage;
                 };
                 PostsComponent = __decorate([
                     core_1.Component({

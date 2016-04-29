@@ -22,28 +22,30 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 function PaginationComponent() {
                     this.items = [];
                     this.pageCount = 10;
-                    this.pagedChanged = new core_1.EventEmitter();
+                    this.pageChanged = new core_1.EventEmitter();
                 }
                 PaginationComponent.prototype.ngOnChanges = function () {
                     this.currentPage = 1;
                     var numberOfPages = this.items.length / this.pageCount;
                     this.pages = [];
-                    for (var i = 1; i <= numberOfPages; i++) {
+                    for (var i = 1; i <= numberOfPages; i++)
                         this.pages.push(i);
-                    }
                 };
                 PaginationComponent.prototype.changePage = function (page) {
                     this.currentPage = page;
+                    this.pageChanged.emit(page);
                 };
                 PaginationComponent.prototype.previous = function () {
                     if (this.currentPage === 1)
                         return;
                     this.currentPage--;
+                    this.pageChanged.emit(this.currentPage);
                 };
                 PaginationComponent.prototype.next = function () {
                     if (this.currentPage === this.pages.length)
                         return;
                     this.currentPage++;
+                    this.pageChanged.emit(this.currentPage);
                 };
                 __decorate([
                     core_1.Input(), 
@@ -56,11 +58,11 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 __decorate([
                     core_1.Output('page-changed'), 
                     __metadata('design:type', Object)
-                ], PaginationComponent.prototype, "pagedChanged", void 0);
+                ], PaginationComponent.prototype, "pageChanged", void 0);
                 PaginationComponent = __decorate([
                     core_1.Component({
                         selector: 'pagination',
-                        template: "\n\t\t<nav *ngIf=\"items.length > pageCount\">\n\t\t  <ul class=\"pagination\">\n\t\t    <li [class.disabled]=\"currentPage === 1\">\n\t\t      <a (click)=\"previous()\" aria-label=\"Previous\">\n\t\t        <span aria-hidden=\"true\">&laquo;</span>\n\t\t      </a>\n\t\t    </li>\n\t\t    <li [class.active]=\"currentPage === page\" *ngFor=\"#page of pages\">\n\t\t    \t<a (click)=\"changePage(page)\">{{ page }}</a>\n\t\t    </li>\n\t\t    <li [class.disabled]=\"currentPage === pages.length\">\n\t\t      <a (click)=\"next()\" aria-label=\"Next\">\n\t\t        <span aria-hidden=\"true\">&raquo;</span>\n\t\t      </a>\n\t\t    </li>\n\t\t  </ul>\n\t\t</nav>\n\t",
+                        template: "\n\t\t<nav *ngIf=\"items.length > pageCount\">\n\t\t  <ul class=\"pagination\">\n\t\t    <li [class.disabled]=\"currentPage === 1\">\n\t\t      <a (click)=\"previous()\" aria-label=\"Previous\">\n\t\t        <span aria-hidden=\"true\">&laquo;</span>\n\t\t      </a>\n\t\t    </li>\n\t\t    <li [class.active]=\"currentPage === page\" *ngFor=\"#page of pages\" (click)=\"changePage(page)\">\n\t\t    \t<a>{{ page }}</a>\n\t\t    </li>\n\t\t    <li [class.disabled]=\"currentPage === pages.length\">\n\t\t      <a (click)=\"next()\" aria-label=\"Next\">\n\t\t        <span aria-hidden=\"true\">&raquo;</span>\n\t\t      </a>\n\t\t    </li>\n\t\t  </ul>\n\t\t</nav>\n\t",
                         styles: ["\n\t\ta:hover { cursor: pointer; }\n\t"]
                     }), 
                     __metadata('design:paramtypes', [])
