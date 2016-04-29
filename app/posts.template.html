@@ -6,6 +6,7 @@
 			<option value="{{ user.id }}" *ngFor="#user of users">{{ user.name }}</option>
 		</select>
 		<spinner [visible]="loadingPosts"></spinner>
+		<pagination [items]="posts" [page-count]="pageCount" (page-changed)="pageChanged($event)"></pagination>
 		<ul class="list-group">
 			<li *ngFor="#post of posts" class="list-group-item" (click)="displayPost(post)">
 				{{ post.title }}

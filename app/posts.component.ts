@@ -4,6 +4,7 @@ import {PostService} from './post.service';
 import {UserService} from './user.service';
 
 import {SpinnerComponent} from './spinner.component';
+import {PaginationComponent} from './pagination.component';
 
 @Component({
 	templateUrl: 'app/posts.template.html',
@@ -18,7 +19,7 @@ import {SpinnerComponent} from './spinner.component';
 		}
 		.comment-author { border-radius: 100%; }
 	`],
-	directives: [SpinnerComponent],
+	directives: [SpinnerComponent, PaginationComponent],
 	providers: [PostService, UserService]
 })
 export class PostsComponent implements OnInit {
@@ -28,6 +29,7 @@ export class PostsComponent implements OnInit {
 	selectedPost;
 	posts = [];
 	comments = [];
+	pageCount = 10;
 
 	constructor(private _userService: UserService, private _postService: PostService) {
 	}
@@ -64,5 +66,9 @@ export class PostsComponent implements OnInit {
 					this.loadingComments = false;
 					this.comments = comments;
 				});
+	}
+
+	pageChanged(page) {
+		
 	}
 }

@@ -1,4 +1,4 @@
-System.register(['angular2/core', './post.service', './user.service', './spinner.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './post.service', './user.service', './spinner.component', './pagination.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './post.service', './user.service', './spinner
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, post_service_1, user_service_1, spinner_component_1;
+    var core_1, post_service_1, user_service_1, spinner_component_1, pagination_component_1;
     var PostsComponent;
     return {
         setters:[
@@ -25,6 +25,9 @@ System.register(['angular2/core', './post.service', './user.service', './spinner
             },
             function (spinner_component_1_1) {
                 spinner_component_1 = spinner_component_1_1;
+            },
+            function (pagination_component_1_1) {
+                pagination_component_1 = pagination_component_1_1;
             }],
         execute: function() {
             PostsComponent = (function () {
@@ -34,6 +37,7 @@ System.register(['angular2/core', './post.service', './user.service', './spinner
                     this.users = [];
                     this.posts = [];
                     this.comments = [];
+                    this.pageCount = 10;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
                     this.loadUsers();
@@ -67,11 +71,13 @@ System.register(['angular2/core', './post.service', './user.service', './spinner
                         _this.comments = comments;
                     });
                 };
+                PostsComponent.prototype.pageChanged = function (page) {
+                };
                 PostsComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/posts.template.html',
                         styles: ["\n\t\t.users { margin-bottom: 10px; }\n\t\t.list-group-item { cursor: pointer; }\n\t\t.list-group-item:hover { background-color: #f5f5f5; }\n\t\thr { width: 75%; }\n\t\t.comment {\n\t\t\tmargin-left: 20px;\n\t\t\tmargin-right: 20px;\n\t\t}\n\t\t.comment-author { border-radius: 100%; }\n\t"],
-                        directives: [spinner_component_1.SpinnerComponent],
+                        directives: [spinner_component_1.SpinnerComponent, pagination_component_1.PaginationComponent],
                         providers: [post_service_1.PostService, user_service_1.UserService]
                     }), 
                     __metadata('design:paramtypes', [user_service_1.UserService, post_service_1.PostService])
