@@ -59,7 +59,8 @@ System.register(['angular2/core', './post.service', './user.service', './spinner
                     });
                 };
                 PostsComponent.prototype.pageChanged = function (page) {
-                    this.pagedPosts = this.getPostsForPage(page);
+                    var startingIndex = (page - 1) * this.pageCount;
+                    this.pagedPosts = _.take(_.rest(this.posts, startingIndex), this.pageCount);
                 };
                 PostsComponent.prototype.loadUsers = function () {
                     var _this = this;
@@ -73,16 +74,8 @@ System.register(['angular2/core', './post.service', './user.service', './spinner
                         .subscribe(function (posts) {
                         _this.loadingPosts = false;
                         _this.posts = posts;
-                        _this.pagedPosts = _this.getPostsForPage(1);
+                        _this.pagedPosts = _.take(_this.posts, _this.pageCount);
                     });
-                };
-                PostsComponent.prototype.getPostsForPage = function (page) {
-                    var postsForPage = [];
-                    var startingIndex = (page - 1) * this.pageCount;
-                    var endingIndex = Math.min(startingIndex + this.pageCount, this.posts.length);
-                    for (var i = startingIndex; i < endingIndex; i++)
-                        postsForPage.push(this.posts[i]);
-                    return postsForPage;
                 };
                 PostsComponent = __decorate([
                     core_1.Component({
