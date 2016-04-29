@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './user.service', './spinner.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './user.service', '../shared/spinner.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -56,7 +56,7 @@ System.register(['angular2/core', 'angular2/router', './user.service', './spinne
                 };
                 UsersComponent = __decorate([
                     core_1.Component({
-                        templateUrl: 'app/users.template.html',
+                        templateUrl: 'app/users/users.template.html',
                         styles: ["\n\t\t.add-user-btn { margin-bottom: 10px; }\n\t\t.glyphicon-edit { color: green; }\n\t\t.glyphicon-remove { color: red; }\n\t\t.glyphicon-remove:hover { cursor: pointer; }\n\t"],
                         directives: [spinner_component_1.SpinnerComponent, router_1.RouterLink],
                         providers: [user_service_1.UserService]

@@ -31,7 +31,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 NavbarComponent = __decorate([
                     core_1.Component({
                         selector: 'navbar',
-                        templateUrl: 'app/navbar.template.html',
+                        templateUrl: 'app/layout/navbar.template.html',
                         styles: ["\n  \ta:hover { color: lime; }\n  "],
                         directives: [router_1.RouterLink]
                     }), 

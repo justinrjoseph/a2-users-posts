@@ -3,7 +3,7 @@ import {Router, RouterLink} from 'angular2/router';
 
 @Component({
 	selector: 'navbar',
-	templateUrl: 'app/navbar.template.html',
+	templateUrl: 'app/layout/navbar.template.html',
 	styles: [`
   	a:hover { color: lime; }
   `],

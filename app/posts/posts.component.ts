@@ -1,13 +1,13 @@
 import {Component, OnInit} from 'angular2/core';
 
 import {PostService} from './post.service';
-import {UserService} from './user.service';
+import {UserService} from '../users/user.service';
 
-import {SpinnerComponent} from './spinner.component';
-import {PaginationComponent} from './pagination.component';
+import {SpinnerComponent} from '../shared/spinner.component';
+import {PaginationComponent} from '../shared/pagination.component';
 
 @Component({
-	templateUrl: 'app/posts.template.html',
+	templateUrl: 'app/posts/posts.template.html',
 	styles: [`
 		.users { margin-bottom: 10px; }
 		.list-group-item { cursor: pointer; }

@@ -4,10 +4,10 @@ import {Router, RouterLink} from 'angular2/router';
 
 import {UserService} from './user.service';
 
-import {SpinnerComponent} from './spinner.component';
+import {SpinnerComponent} from '../shared/spinner.component';
 
 @Component({
-	templateUrl: 'app/users.template.html',
+	templateUrl: 'app/users/users.template.html',
 	styles: [`
 		.add-user-btn { margin-bottom: 10px; }
 		.glyphicon-edit { color: green; }
